@@ -248,7 +248,7 @@ export default function Dashboard() {
               >
                 <Button 
                   onClick={() => setShowForm(true)} 
-                  className="shrink-0 bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 hover:from-yellow-600 hover:via-amber-600 hover:to-orange-600 text-white border-0 shadow-yellow hover:shadow-yellow-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                  className="shrink-0 bg-gradient-to-r from-fuchsia-500 via-pink-500 to-purple-500 hover:from-fuchsia-600 hover:via-pink-600 hover:to-purple-600 text-white border-0 shadow-fuchsia hover:shadow-fuchsia-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
