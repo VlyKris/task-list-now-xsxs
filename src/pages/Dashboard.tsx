@@ -58,10 +58,10 @@ export default function Dashboard() {
         {/* Enhanced Animated Background */}
         <div className="fixed inset-0 -z-10">
           {/* Multi-layer gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 animate-gradient"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,20,147,0.2),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(138,43,226,0.2),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-indigo-900 to-cyan-900 animate-gradient"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.3),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.2),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(99,102,241,0.2),transparent_50%)]"></div>
           
           {/* Enhanced Floating Particles */}
           <div className="absolute inset-0 overflow-hidden">
@@ -72,7 +72,7 @@ export default function Dashboard() {
                 style={{
                   width: Math.random() * 4 + 2,
                   height: Math.random() * 4 + 2,
-                  background: `rgba(255,255,255,${Math.random() * 0.3 + 0.1})`,
+                  background: `rgba(59,130,246,${Math.random() * 0.3 + 0.1})`,
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
                 }}
@@ -97,7 +97,7 @@ export default function Dashboard() {
             {Array.from({ length: 8 }).map((_, i) => (
               <motion.div
                 key={`icon-${i}`}
-                className="absolute text-white/10"
+                className="absolute text-blue-300/20"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
@@ -124,7 +124,7 @@ export default function Dashboard() {
           {/* Animated Grid Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0)`,
               backgroundSize: '50px 50px'
             }} />
           </div>
@@ -135,7 +135,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="border-b border-white/10 bg-white/5 backdrop-blur-xl sticky top-0 z-10"
+          className="border-b border-blue-200/20 bg-blue-50/10 backdrop-blur-xl sticky top-0 z-10"
         >
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -147,7 +147,7 @@ export default function Dashboard() {
                 transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
                 className="relative"
               >
-                <CheckCircle className="h-8 w-8 text-white drop-shadow-lg" />
+                <CheckCircle className="h-8 w-8 text-blue-400 drop-shadow-lg" />
                 <motion.div
                   animate={{ 
                     scale: [1, 1.2, 1],
@@ -156,12 +156,12 @@ export default function Dashboard() {
                   transition={{ duration: 2, repeat: Infinity }}
                   className="absolute -top-1 -right-1"
                 >
-                  <Sparkles className="h-4 w-4 text-yellow-400" />
+                  <Sparkles className="h-4 w-4 text-cyan-400" />
                 </motion.div>
               </motion.div>
               <div>
                 <motion.h1 
-                  className="text-2xl font-bold tracking-tight bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent"
+                  className="text-2xl font-bold tracking-tight text-blue-gradient"
                   animate={{ 
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
                   }}
@@ -170,7 +170,7 @@ export default function Dashboard() {
                   TodoFlow
                 </motion.h1>
                 <motion.p 
-                  className="text-sm text-white/70 flex items-center gap-1"
+                  className="text-sm text-blue-200/90 flex items-center gap-1"
                   animate={{ opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
@@ -204,27 +204,27 @@ export default function Dashboard() {
               <motion.div
                 animate={{ 
                   scale: [1, 1.02, 1],
-                  boxShadow: ["0 0 0 rgba(139, 92, 246, 0)", "0 0 20px rgba(139, 92, 246, 0.3)", "0 0 0 rgba(139, 92, 246, 0)"]
+                  boxShadow: ["0 0 0 rgba(59, 130, 246, 0)", "0 0 20px rgba(59, 130, 246, 0.3)", "0 0 0 rgba(59, 130, 246, 0)"]
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="absolute inset-0 rounded-md"
               />
-              <Search className="absolute left-3 top-3 h-4 w-4 text-white/50 group-focus-within:text-white transition-colors z-10" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-blue-200/70 group-focus-within:text-blue-300 transition-colors z-10" />
               <Input
                 placeholder="Search todos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all backdrop-blur-sm relative z-10"
+                className="pl-10 bg-blue-900/20 border-blue-300/30 text-blue-100 placeholder:text-blue-200/50 focus:bg-blue-800/30 focus:border-blue-400/50 transition-all backdrop-blur-sm relative z-10"
               />
             </div>
             
             <div className="flex gap-2">
               <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
-                <SelectTrigger className="w-[140px] bg-white/10 border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition-all hover:scale-105">
+                <SelectTrigger className="w-[140px] bg-blue-900/20 border-blue-300/30 text-blue-100 backdrop-blur-sm hover:bg-blue-800/30 transition-all hover:scale-105">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
+                <SelectContent className="bg-blue-50/95 backdrop-blur-sm border-blue-200/30">
                   <SelectItem value="all">All Status</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
@@ -232,10 +232,10 @@ export default function Dashboard() {
               </Select>
 
               <Select value={filterPriority} onValueChange={(value: any) => setFilterPriority(value)}>
-                <SelectTrigger className="w-[140px] bg-white/10 border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition-all hover:scale-105">
+                <SelectTrigger className="w-[140px] bg-blue-900/20 border-blue-300/30 text-blue-100 backdrop-blur-sm hover:bg-blue-800/30 transition-all hover:scale-105">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
+                <SelectContent className="bg-blue-50/95 backdrop-blur-sm border-blue-200/30">
                   <SelectItem value="all">All Priority</SelectItem>
                   <SelectItem value="high">High</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
@@ -249,7 +249,7 @@ export default function Dashboard() {
               >
                 <Button 
                   onClick={() => setShowForm(true)} 
-                  className="shrink-0 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                  className="shrink-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 hover:from-blue-600 hover:via-cyan-600 hover:to-indigo-600 text-white border-0 shadow-blue hover:shadow-blue-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
@@ -279,18 +279,18 @@ export default function Dashboard() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="p-4 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm animate-pulse relative overflow-hidden"
+                    className="p-4 rounded-xl border border-blue-300/20 bg-blue-900/10 backdrop-blur-sm animate-pulse relative overflow-hidden"
                   >
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent"
                       animate={{ x: ["-100%", "100%"] }}
                       transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
                     />
                     <div className="flex items-start gap-3 relative z-10">
-                      <div className="w-4 h-4 bg-white/20 rounded mt-1"></div>
+                      <div className="w-4 h-4 bg-blue-300/30 rounded mt-1"></div>
                       <div className="flex-1">
-                        <div className="h-4 bg-white/20 rounded mb-2"></div>
-                        <div className="h-3 bg-white/20 rounded w-2/3"></div>
+                        <div className="h-4 bg-blue-300/30 rounded mb-2"></div>
+                        <div className="h-3 bg-blue-300/30 rounded w-2/3"></div>
                       </div>
                     </div>
                   </motion.div>
@@ -312,7 +312,7 @@ export default function Dashboard() {
                   transition={{ duration: 4, repeat: Infinity }}
                   className="relative"
                 >
-                  <CheckCircle className="h-16 w-16 text-white/50 mx-auto mb-4" />
+                  <CheckCircle className="h-16 w-16 text-blue-300/70 mx-auto mb-4" />
                   <motion.div
                     animate={{ 
                       scale: [1, 1.2, 1],
@@ -321,15 +321,15 @@ export default function Dashboard() {
                     transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                     className="absolute inset-0"
                   >
-                    <Sparkles className="h-8 w-8 text-yellow-400 mx-auto" />
+                    <Sparkles className="h-8 w-8 text-cyan-400 mx-auto" />
                   </motion.div>
                 </motion.div>
-                <h3 className="text-lg font-semibold mb-2 text-white">
+                <h3 className="text-lg font-semibold mb-2 text-blue-100">
                   {searchQuery || filterStatus !== "all" || filterPriority !== "all" 
                     ? "No todos match your filters" 
                     : "No todos yet"}
                 </h3>
-                <p className="text-white/70 mb-6">
+                <p className="text-blue-200/80 mb-6">
                   {searchQuery || filterStatus !== "all" || filterPriority !== "all"
                     ? "Try adjusting your search or filters"
                     : "Create your first todo to get started"}
@@ -341,7 +341,7 @@ export default function Dashboard() {
                   >
                     <Button 
                       onClick={() => setShowForm(true)}
-                      className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                      className="bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 hover:from-blue-600 hover:via-cyan-600 hover:to-indigo-600 text-white border-0 shadow-blue hover:shadow-blue-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                     >
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
