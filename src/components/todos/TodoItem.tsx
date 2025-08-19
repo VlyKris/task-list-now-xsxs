@@ -9,7 +9,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Edit, MoreHorizontal, Trash2 } from "lucide-react";
+import { Calendar, Clock, Edit, MoreHorizontal, Trash2, Star } from "lucide-react";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
@@ -27,9 +27,15 @@ interface TodoItemProps {
 }
 
 const priorityColors = {
-  low: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  medium: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
-  high: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+  low: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+  medium: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+  high: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+};
+
+const priorityIcons = {
+  low: "⭐",
+  medium: "⭐⭐",
+  high: "⭐⭐⭐",
 };
 
 export function TodoItem({ todo, onEdit }: TodoItemProps) {
@@ -68,71 +74,118 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className={`group p-4 rounded-xl border transition-all hover:shadow-md ${
+      whileHover={{ 
+        scale: 1.02,
+        y: -2,
+        transition: { duration: 0.2 }
+      }}
+      className={`group relative overflow-hidden rounded-xl border transition-all duration-300 ${
         todo.completed 
-          ? "bg-muted/50 border-border/50" 
-          : "bg-card border-border hover:border-primary/20"
+          ? "bg-white/5 border-white/10 backdrop-blur-sm" 
+          : "bg-white/10 border-white/20 hover:border-white/40 hover:bg-white/15 backdrop-blur-sm"
       }`}
     >
-      <div className="flex items-start gap-3">
-        <Checkbox
-          checked={todo.completed}
-          onCheckedChange={handleToggle}
-          className="mt-1"
-        />
-        
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className={`font-medium ${todo.completed ? "line-through text-muted-foreground" : ""}`}>
-              {todo.title}
-            </h3>
-            <span className={`px-2 py-1 text-xs rounded-full font-medium ${priorityColors[todo.priority]}`}>
-              {todo.priority}
-            </span>
-          </div>
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      
+      {/* Glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+      
+      <div className="relative p-4">
+        <div className="flex items-start gap-3">
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Checkbox
+              checked={todo.completed}
+              onCheckedChange={handleToggle}
+              className="mt-1 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-purple-500 data-[state=checked]:to-pink-500 data-[state=checked]:border-0"
+            />
+          </motion.div>
           
-          {todo.description && (
-            <p className={`text-sm mb-2 ${todo.completed ? "line-through text-muted-foreground" : "text-muted-foreground"}`}>
-              {todo.description}
-            </p>
-          )}
-          
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
-              {formatDate(todo._creationTime)}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className={`font-semibold text-white transition-all ${
+                todo.completed ? "line-through text-white/50" : ""
+              }`}>
+                {todo.title}
+              </h3>
+              <motion.span 
+                whileHover={{ scale: 1.05 }}
+                className={`px-3 py-1 text-xs rounded-full font-medium border ${priorityColors[todo.priority]} backdrop-blur-sm`}
+              >
+                {priorityIcons[todo.priority]} {todo.priority}
+              </motion.span>
             </div>
-            {todo.dueDate && (
-              <div className={`flex items-center gap-1 ${isOverdue ? "text-red-500" : ""}`}>
-                <Calendar className="h-3 w-3" />
-                Due {formatDate(todo.dueDate)}
-                {isOverdue && <span className="text-red-500 font-medium">• Overdue</span>}
-              </div>
+            
+            {todo.description && (
+              <p className={`text-sm mb-3 transition-all ${
+                todo.completed ? "line-through text-white/40" : "text-white/70"
+              }`}>
+                {todo.description}
+              </p>
             )}
+            
+            <div className="flex items-center gap-4 text-xs text-white/60">
+              <motion.div 
+                className="flex items-center gap-1"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Clock className="h-3 w-3" />
+                {formatDate(todo._creationTime)}
+              </motion.div>
+              {todo.dueDate && (
+                <motion.div 
+                  className={`flex items-center gap-1 ${isOverdue ? "text-rose-400" : ""}`}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Calendar className="h-3 w-3" />
+                  Due {formatDate(todo.dueDate)}
+                  {isOverdue && (
+                    <motion.span 
+                      className="text-rose-400 font-medium"
+                      animate={{ 
+                        color: ["#f87171", "#ef4444", "#f87171"],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      • Overdue
+                    </motion.span>
+                  )}
+                </motion.div>
+              )}
+            </div>
           </div>
-        </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onEdit(todo)} className="cursor-pointer">
-              <Edit className="h-4 w-4 mr-2" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-destructive">
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/40 backdrop-blur-sm"
+                >
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </motion.div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-white/95 backdrop-blur-sm border-white/20">
+              <DropdownMenuItem onClick={() => onEdit(todo)} className="cursor-pointer">
+                <Edit className="h-4 w-4 mr-2" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-destructive">
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </motion.div>
   );

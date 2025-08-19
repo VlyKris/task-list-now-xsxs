@@ -1,122 +1,176 @@
-/* DO NOT CHANGE */
-@import "tailwindcss";
-@import "tw-animate-css";
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
-/* DO NOT CHANGE */
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
 
-/* Modern Minimalist Theme */
-:root {
-  --radius: 0.75rem;
-  --background: oklch(0.99 0.002 0);
-  --foreground: oklch(0.09 0.005 285.82);
-  --card: oklch(0.99 0.002 0);
-  --card-foreground: oklch(0.09 0.005 285.82);
-  --popover: oklch(0.99 0.002 0);
-  --popover-foreground: oklch(0.09 0.005 285.82);
-  --primary: oklch(0.47 0.15 258.38);
-  --primary-foreground: oklch(0.99 0.002 0);
-  --secondary: oklch(0.96 0.015 285.82);
-  --secondary-foreground: oklch(0.47 0.15 258.38);
-  --muted: oklch(0.96 0.015 285.82);
-  --muted-foreground: oklch(0.45 0.015 285.82);
-  --accent: oklch(0.94 0.025 285.82);
-  --accent-foreground: oklch(0.47 0.15 258.38);
-  --destructive: oklch(0.65 0.2 25);
-  --border: oklch(0.91 0.025 285.82);
-  --input: oklch(0.91 0.025 285.82);
-  --ring: oklch(0.47 0.15 258.38);
-  --chart-1: oklch(0.47 0.15 258.38);
-  --chart-2: oklch(0.55 0.12 196.38);
-  --chart-3: oklch(0.6 0.15 142.38);
-  --chart-4: oklch(0.65 0.2 25);
-  --chart-5: oklch(0.7 0.18 320.38);
-  --sidebar: oklch(0.98 0.005 285.82);
-  --sidebar-foreground: oklch(0.09 0.005 285.82);
-  --sidebar-primary: oklch(0.47 0.15 258.38);
-  --sidebar-primary-foreground: oklch(0.99 0.002 0);
-  --sidebar-accent: oklch(0.94 0.025 285.82);
-  --sidebar-accent-foreground: oklch(0.47 0.15 258.38);
-  --sidebar-border: oklch(0.91 0.025 285.82);
-  --sidebar-ring: oklch(0.47 0.15 258.38);
-}
-
-.dark {
-  --background: oklch(0.06 0.015 285.82);
-  --foreground: oklch(0.95 0.015 285.82);
-  --card: oklch(0.08 0.015 285.82);
-  --card-foreground: oklch(0.95 0.015 285.82);
-  --popover: oklch(0.08 0.015 285.82);
-  --popover-foreground: oklch(0.95 0.015 285.82);
-  --primary: oklch(0.65 0.18 258.38);
-  --primary-foreground: oklch(0.06 0.015 285.82);
-  --secondary: oklch(0.12 0.025 285.82);
-  --secondary-foreground: oklch(0.95 0.015 285.82);
-  --muted: oklch(0.12 0.025 285.82);
-  --muted-foreground: oklch(0.65 0.025 285.82);
-  --accent: oklch(0.15 0.035 285.82);
-  --accent-foreground: oklch(0.95 0.015 285.82);
-  --destructive: oklch(0.7 0.25 25);
-  --border: oklch(0.15 0.035 285.82);
-  --input: oklch(0.15 0.035 285.82);
-  --ring: oklch(0.65 0.18 258.38);
-  --chart-1: oklch(0.65 0.18 258.38);
-  --chart-2: oklch(0.7 0.15 196.38);
-  --chart-3: oklch(0.75 0.18 142.38);
-  --chart-4: oklch(0.7 0.25 25);
-  --chart-5: oklch(0.8 0.22 320.38);
-  --sidebar: oklch(0.08 0.015 285.82);
-  --sidebar-foreground: oklch(0.95 0.015 285.82);
-  --sidebar-primary: oklch(0.65 0.18 258.38);
-  --sidebar-primary-foreground: oklch(0.06 0.015 285.82);
-  --sidebar-accent: oklch(0.15 0.035 285.82);
-  --sidebar-accent-foreground: oklch(0.95 0.015 285.82);
-  --sidebar-border: oklch(0.15 0.035 285.82);
-  --sidebar-ring: oklch(0.65 0.18 258.38);
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-gradient {
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Glassmorphism utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Enhanced focus states */
+.focus-ring:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Custom checkbox styling */
+.custom-checkbox {
+  @apply relative w-5 h-5 rounded border-2 border-white/30 bg-transparent transition-all duration-200;
+}
+
+.custom-checkbox:checked {
+  @apply border-purple-500 bg-gradient-to-r from-purple-500 to-pink-500;
+}
+
+.custom-checkbox:checked::after {
+  content: '✓';
+  @apply absolute inset-0 flex items-center justify-center text-white text-sm font-bold;
 }
