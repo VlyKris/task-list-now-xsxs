@@ -38,8 +38,8 @@ export default function Landing() {
       <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900 via-pink-900 to-purple-900 animate-gradient"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,70,239,0.2),transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 animate-gradient"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.2),transparent_60%)]"></div>
           <motion.div
             className="absolute inset-0"
             animate={{
@@ -56,8 +56,8 @@ export default function Landing() {
               repeat: Infinity,
             }}
           >
-            <div className="absolute h-[50rem] w-[50rem] bg-[radial-gradient(circle,rgba(236,72,153,0.3)_0%,transparent_70%)] -top-1/4 left-1/4"></div>
-            <div className="absolute h-[40rem] w-[40rem] bg-[radial-gradient(circle,rgba(168,85,247,0.3)_0%,transparent_70%)] bottom-1/4 right-1/4"></div>
+            <div className="absolute h-[50rem] w-[50rem] bg-[radial-gradient(circle,rgba(34,197,94,0.3)_0%,transparent_70%)] -top-1/4 left-1/4"></div>
+            <div className="absolute h-[40rem] w-[40rem] bg-[radial-gradient(circle,rgba(16,185,129,0.3)_0%,transparent_70%)] bottom-1/4 right-1/4"></div>
           </motion.div>
         </div>
 
@@ -70,14 +70,14 @@ export default function Landing() {
         >
           <div className="container mx-auto px-4 py-4 flex items-center justify-between bg-black/20 backdrop-blur-md rounded-b-2xl border-b border-white/10">
             <div className="flex items-center gap-2">
-              <CheckCircle className="h-7 w-7 text-fuchsia-400" />
-              <h1 className="text-xl font-bold tracking-tight text-fuchsia-gradient">
+              <CheckCircle className="h-7 w-7 text-green-400" />
+              <h1 className="text-xl font-bold tracking-tight text-green-gradient">
                 TodoFlow
               </h1>
             </div>
             <AuthButton 
-              trigger={<Button variant="ghost" className="text-white hover:bg-fuchsia-400/10">Sign In</Button>}
-              dashboardTrigger={<Button className="bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg hover:scale-105 transition-transform">Dashboard</Button>}
+              trigger={<Button variant="ghost" className="text-white hover:bg-green-400/10">Sign In</Button>}
+              dashboardTrigger={<Button className="bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg hover:scale-105 transition-transform">Dashboard</Button>}
             />
           </div>
         </motion.header>
@@ -91,38 +91,38 @@ export default function Landing() {
             className="text-center relative"
           >
             <motion.div
-              className="absolute -top-16 -left-16 w-64 h-64 bg-fuchsia-400/10 rounded-full blur-3xl"
+              className="absolute -top-16 -left-16 w-64 h-64 bg-green-400/10 rounded-full blur-3xl"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 10, repeat: Infinity }}
             ></motion.div>
             <motion.div
-              className="absolute -bottom-16 -right-16 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
+              className="absolute -bottom-16 -right-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 10, repeat: Infinity, delay: 5 }}
             ></motion.div>
             
-            <div className="relative z-10 bg-card/90 backdrop-blur-md p-10 rounded-xl border border-cyan-500/30 shadow-[0_0_20px_rgba(0,255,255,0.1)]">
+            <div className="relative z-10 bg-card/90 backdrop-blur-md p-10 rounded-xl border border-green-500/30 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
                 className="inline-block"
               >
-                <Sparkles className="h-16 w-16 text-fuchsia-400 mx-auto mb-4" />
+                <Sparkles className="h-16 w-16 text-green-400 mx-auto mb-4" />
               </motion.div>
-              <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-300 via-pink-300 to-purple-300">
+              <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300">
                 Flow Through Your Tasks
               </h2>
-              <p className="max-w-2xl mx-auto text-lg text-fuchsia-200/80 mb-8">
+              <p className="max-w-2xl mx-auto text-lg text-green-200/80 mb-8">
                 The ultimate todo app designed for fluidity, focus, and a little bit of fun. Stop managing, start flowing.
               </p>
               <AuthButton
                 trigger={
-                  <Button size="lg" className="bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg hover:scale-105 transition-transform px-8 py-6 text-lg">
+                  <Button size="lg" className="bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg hover:scale-105 transition-transform px-8 py-6 text-lg">
                     Get Started for Free <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 }
                 dashboardTrigger={
-                  <Button size="lg" className="bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg hover:scale-105 transition-transform px-8 py-6 text-lg">
+                  <Button size="lg" className="bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg hover:scale-105 transition-transform px-8 py-6 text-lg">
                     Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 }
