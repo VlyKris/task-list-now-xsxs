@@ -105,19 +105,19 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[500px] bg-white/10 backdrop-blur-xl border-white/20 text-white">
+      <DialogContent className="sm:max-w-[500px] glass-green border-green-glow shadow-green-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-white">
+          <DialogTitle className="flex items-center gap-2 text-green-gradient">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
             >
-              <Plus className="h-5 w-5 text-purple-400" />
+              <Plus className="h-5 w-5 text-green-500" />
             </motion.div>
-            <span className="bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+            <span className="text-green-gradient">
               {editTodo ? "Edit Todo" : "Create New Todo"}
             </span>
-            <Sparkles className="h-4 w-4 text-yellow-400" />
+            <Sparkles className="h-4 w-4 text-emerald-400" />
           </DialogTitle>
         </DialogHeader>
         
@@ -128,14 +128,14 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <Label htmlFor="title" className="text-white/90">Title</Label>
+            <Label htmlFor="title" className="text-green-800">Title</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="What needs to be done?"
               required
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all backdrop-blur-sm"
+              className="bg-green-50/80 border-green-200 text-green-900 placeholder:text-green-500 focus:bg-green-100 focus:border-green-400 focus:ring-green-400 transition-all backdrop-blur-sm"
             />
           </motion.div>
 
@@ -145,14 +145,14 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Label htmlFor="description" className="text-white/90">Description</Label>
+            <Label htmlFor="description" className="text-green-800">Description</Label>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add more details..."
               rows={3}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all backdrop-blur-sm resize-none"
+              className="bg-green-50/80 border-green-200 text-green-900 placeholder:text-green-500 focus:bg-green-100 focus:border-green-400 focus:ring-green-400 transition-all backdrop-blur-sm resize-none"
             />
           </motion.div>
 
@@ -163,12 +163,12 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <Label htmlFor="priority" className="text-white/90">Priority</Label>
+              <Label htmlFor="priority" className="text-green-800">Priority</Label>
               <Select value={priority} onValueChange={(value: "low" | "medium" | "high") => setPriority(value)}>
-                <SelectTrigger className="bg-white/10 border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition-all">
+                <SelectTrigger className="bg-green-50/80 border-green-200 text-green-900 backdrop-blur-sm hover:bg-green-100 transition-all">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
+                <SelectContent className="bg-green-50/95 backdrop-blur-sm border-green-200">
                   <SelectItem value="low">Low</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
                   <SelectItem value="high">High</SelectItem>
@@ -182,23 +182,23 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <Label htmlFor="dueDate" className="text-white/90">Due Date</Label>
+              <Label htmlFor="dueDate" className="text-green-800">Due Date</Label>
               <div className="relative">
                 <Input
                   id="dueDate"
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white focus:bg-white/20 focus:border-white/40 transition-all backdrop-blur-sm"
+                  className="pl-10 bg-green-50/80 border-green-200 text-green-900 focus:bg-green-100 focus:border-green-400 focus:ring-green-400 transition-all backdrop-blur-sm"
                 />
-                <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-white/50" />
+                <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-green-500" />
               </div>
             </motion.div>
           </div>
 
           {/* Priority Preview */}
           <motion.div 
-            className="p-4 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm"
+            className="p-4 rounded-lg border border-green-200 bg-green-50/50 backdrop-blur-sm"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
@@ -208,8 +208,8 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
                 <currentPriority.icon className={`h-5 w-5 ${currentPriority.color}`} />
               </div>
               <div>
-                <p className="text-sm font-medium text-white/70">Priority Level</p>
-                <p className="text-white capitalize">{priority}</p>
+                <p className="text-sm font-medium text-green-600">Priority Level</p>
+                <p className="text-green-800 capitalize">{priority}</p>
               </div>
             </div>
           </motion.div>
@@ -224,20 +224,20 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="flex-1 bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/40 backdrop-blur-sm transition-all"
+              className="flex-1 bg-green-50/80 border-green-200 text-green-700 hover:bg-green-100 hover:border-green-300 backdrop-blur-sm transition-all"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={!title.trim() || isLoading}
-              className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
+              className="flex-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white border-0 shadow-green hover:shadow-green-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
             >
               {isLoading ? (
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
+                  className="w-4 h-4 border-2 border-green-300 border-t-green-600 rounded-full"
                 />
               ) : (
                 editTodo ? "Update Todo" : "Create Todo"

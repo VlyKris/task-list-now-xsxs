@@ -81,12 +81,12 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
   return (
     <>
       <div className="flex items-center justify-center h-full flex-col">
-        <Card className="min-w-[350px] pb-0 border shadow-md">
+        <Card className="min-w-[350px] pb-0 border-green-200 shadow-green-lg glass-green">
           {step === "signIn" ? (
             <>
               <CardHeader className="text-center">
-                <CardTitle className="text-xl">Get Started</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-xl text-green-gradient">Get Started</CardTitle>
+                <CardDescription className="text-green-700">
                   Enter your email to log in or sign up
                 </CardDescription>
               </CardHeader>
@@ -102,16 +102,16 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                     />
                   </div>
                   <div className="mb-4">
-                    <Label htmlFor="email">Enter your email</Label>
+                    <Label htmlFor="email" className="text-green-800">Enter your email</Label>
                   </div>
                   <div className="relative flex items-center gap-2">
                     <div className="relative flex-1">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-green-600" />
                       <Input
                         name="email"
                         placeholder="name@example.com"
                         type="email"
-                        className="pl-9"
+                        className="pl-9 border-green-200 focus:border-green-400 focus:ring-green-400"
                         disabled={isLoading}
                         required
                       />
@@ -121,6 +121,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                       variant="outline"
                       size="icon"
                       disabled={isLoading}
+                      className="border-green-200 text-green-600 hover:bg-green-50 hover:border-green-300"
                     >
                       {isLoading ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -138,8 +139,8 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
           ) : (
             <>
               <CardHeader className="text-center mt-4">
-                <CardTitle>Check your email</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-green-gradient">Check your email</CardTitle>
+                <CardDescription className="text-green-700">
                   We've sent a code to {step.email}
                 </CardDescription>
               </CardHeader>
@@ -163,6 +164,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                           }
                         }
                       }}
+                      className="[&_input]:border-green-200 [&_input]:focus:border-green-400 [&_input]:focus:ring-green-400"
                     >
                       <InputOTPGroup>
                         {Array.from({ length: 6 }).map((_, index) => (
@@ -176,11 +178,11 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                       {error}
                     </p>
                   )}
-                  <p className="text-sm text-muted-foreground text-center mt-4">
+                  <p className="text-sm text-green-600 text-center mt-4">
                     Didn't receive a code?{" "}
                     <Button
                       variant="link"
-                      className="p-0 h-auto"
+                      className="p-0 h-auto text-green-600 hover:text-green-800"
                       onClick={() => setStep("signIn")}
                     >
                       Try again
@@ -190,7 +192,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                 <CardFooter className="flex-col gap-2">
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full bg-green-600 hover:bg-green-700 shadow-green hover:shadow-green-lg"
                     disabled={isLoading || otp.length !== 6}
                   >
                     {isLoading ? (
@@ -210,7 +212,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
                     variant="ghost"
                     onClick={() => setStep("signIn")}
                     disabled={isLoading}
-                    className="w-full"
+                    className="w-full text-green-600 hover:text-green-800 hover:bg-green-50"
                   >
                     Use different email
                   </Button>
@@ -219,13 +221,13 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
             </>
           )}
 
-          <div className="py-4 px-6 text-xs text-center text-muted-foreground bg-muted border-t rounded-b-lg">
+          <div className="py-4 px-6 text-xs text-center text-green-600 bg-green-50 border-t border-green-200 rounded-b-lg">
             Secured by{" "}
             <a
               href="https://vly.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-primary transition-colors"
+              className="underline hover:text-green-800 transition-colors"
             >
               vly.ai
             </a>

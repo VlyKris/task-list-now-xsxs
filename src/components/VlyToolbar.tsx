@@ -15,9 +15,10 @@ const injectHighlightStyle = () => {
   style.id = "vly-toolbar-style";
   style.innerHTML = `
     .${HIGHLIGHT_CLASS} {
-      outline: 2px solid #0070f3;
+      outline: 2px solid #22c55e;
       cursor: pointer;
-      background: rgba(0,112,243,0.08);
+      background: rgba(34, 197, 94, 0.08);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
     }
   `;
   document.head.appendChild(style);
@@ -201,17 +202,17 @@ export const VlyToolbar: React.FC = () => {
             top: 0,
             left: 0,
             width: "100vw",
-            background: "hsla(340, 30%, 54%, 0.65)",
+            background: "hsla(142, 76%, 36%, 0.65)",
             color: "#fff",
             fontWeight: "bold",
             textAlign: "center",
             zIndex: 99999, // ensure above all content
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
-            boxShadow: "0 4px 24px 0 hsla(340,30%,54%,0.18)",
+            boxShadow: "0 4px 24px 0 hsla(142,76%,36%,0.18)",
             letterSpacing: "0.02em",
             fontSize: "1.08rem",
-            border: "1px solid hsla(340,30%,34%,0.28)",
+            border: "1px solid hsla(142,76%,26%,0.28)",
             pointerEvents: "auto",
             transition:
               "max-height 0.25s cubic-bezier(.4,0,.2,1), opacity 0.25s cubic-bezier(.4,0,.2,1), padding 0.25s cubic-bezier(.4,0,.2,1)",

@@ -15,7 +15,7 @@ function SignIn() {
   }, [isLoading, isAuthenticated, searchParams, navigate]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center bg-green-gradient green-wave-bg">
       <AuthCard />
     </div>
   );
