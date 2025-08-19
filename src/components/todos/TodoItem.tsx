@@ -9,7 +9,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Edit, MoreHorizontal, Trash2, Star } from "lucide-react";
+import { Calendar, Clock, Edit, MoreHorizontal, Trash2, Star, Zap, Target } from "lucide-react";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
@@ -33,6 +33,12 @@ const priorityColors = {
 };
 
 const priorityIcons = {
+  low: Target,
+  medium: Clock,
+  high: Zap,
+};
+
+const priorityEmojis = {
   low: "⭐",
   medium: "⭐⭐",
   high: "⭐⭐⭐",
@@ -68,6 +74,7 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
   };
 
   const isOverdue = todo.dueDate && todo.dueDate < Date.now() && !todo.completed;
+  const PriorityIcon = priorityIcons[todo.priority];
 
   return (
     <motion.div
@@ -76,61 +83,105 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
       exit={{ opacity: 0, y: -20 }}
       whileHover={{ 
         scale: 1.02,
-        y: -2,
-        transition: { duration: 0.2 }
+        y: -3,
+        rotateY: 2,
+        transition: { duration: 0.3, type: "spring", stiffness: 300 }
       }}
-      className={`group relative overflow-hidden rounded-xl border transition-all duration-300 ${
+      className={`group relative overflow-hidden rounded-xl border transition-all duration-500 perspective-1000 ${
         todo.completed 
           ? "bg-white/5 border-white/10 backdrop-blur-sm" 
           : "bg-white/10 border-white/20 hover:border-white/40 hover:bg-white/15 backdrop-blur-sm"
       }`}
     >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Enhanced animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+      
+      {/* Shimmer effect */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        animate={{ x: ["-100%", "100%"] }}
+        transition={{ duration: 2, repeat: Infinity, delay: Math.random() * 2 }}
+      />
+      
+      {/* Priority indicator line */}
+      <motion.div
+        className={`absolute left-0 top-0 bottom-0 w-1 ${
+          todo.priority === 'high' ? 'bg-gradient-to-b from-rose-500 to-pink-500' :
+          todo.priority === 'medium' ? 'bg-gradient-to-b from-amber-500 to-orange-500' :
+          'bg-gradient-to-b from-emerald-500 to-green-500'
+        }`}
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      />
       
       <div className="relative p-4">
         <div className="flex items-start gap-3">
           <motion.div
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.2, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
+            className="relative"
           >
             <Checkbox
               checked={todo.completed}
               onCheckedChange={handleToggle}
-              className="mt-1 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-purple-500 data-[state=checked]:to-pink-500 data-[state=checked]:border-0"
+              className="mt-1 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-purple-500 data-[state=checked]:to-pink-500 data-[state=checked]:border-0 relative z-10"
             />
+            {todo.completed && (
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded animate-pulse"
+              />
+            )}
           </motion.div>
           
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className={`font-semibold text-white transition-all ${
-                todo.completed ? "line-through text-white/50" : ""
-              }`}>
-                {todo.title}
-              </h3>
-              <motion.span 
-                whileHover={{ scale: 1.05 }}
-                className={`px-3 py-1 text-xs rounded-full font-medium border ${priorityColors[todo.priority]} backdrop-blur-sm`}
+              <motion.h3 
+                className={`font-semibold text-white transition-all ${
+                  todo.completed ? "line-through text-white/50" : ""
+                }`}
+                whileHover={{ scale: 1.02 }}
               >
-                {priorityIcons[todo.priority]} {todo.priority}
-              </motion.span>
+                {todo.title}
+              </motion.h3>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="flex items-center gap-1"
+              >
+                <motion.span 
+                  className={`px-3 py-1 text-xs rounded-full font-medium border ${priorityColors[todo.priority]} backdrop-blur-sm flex items-center gap-1`}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <PriorityIcon className="h-3 w-3" />
+                  {priorityEmojis[todo.priority]} {todo.priority}
+                </motion.span>
+              </motion.div>
             </div>
             
             {todo.description && (
-              <p className={`text-sm mb-3 transition-all ${
-                todo.completed ? "line-through text-white/40" : "text-white/70"
-              }`}>
+              <motion.p 
+                className={`text-sm mb-3 transition-all ${
+                  todo.completed ? "line-through text-white/40" : "text-white/70"
+                }`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
                 {todo.description}
-              </p>
+              </motion.p>
             )}
             
             <div className="flex items-center gap-4 text-xs text-white/60">
               <motion.div 
                 className="flex items-center gap-1"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, color: "rgba(255,255,255,0.8)" }}
+                transition={{ duration: 0.2 }}
               >
                 <Clock className="h-3 w-3" />
                 {formatDate(todo._creationTime)}
@@ -139,12 +190,13 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
                 <motion.div 
                   className={`flex items-center gap-1 ${isOverdue ? "text-rose-400" : ""}`}
                   whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <Calendar className="h-3 w-3" />
                   Due {formatDate(todo.dueDate)}
                   {isOverdue && (
                     <motion.span 
-                      className="text-rose-400 font-medium"
+                      className="text-rose-400 font-medium flex items-center gap-1"
                       animate={{ 
                         color: ["#f87171", "#ef4444", "#f87171"],
                         scale: [1, 1.1, 1]
@@ -152,6 +204,12 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
                       transition={{ duration: 1, repeat: Infinity }}
                     >
                       • Overdue
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <Zap className="h-3 w-3" />
+                      </motion.div>
                     </motion.span>
                   )}
                 </motion.div>
@@ -162,30 +220,52 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <motion.div
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/40 backdrop-blur-sm"
+                  className="opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/40 backdrop-blur-sm relative overflow-hidden"
                 >
-                  <MoreHorizontal className="h-4 w-4" />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20"
+                    animate={{ x: ["-100%", "100%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                  <MoreHorizontal className="h-4 w-4 relative z-10" />
                 </Button>
               </motion.div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white/95 backdrop-blur-sm border-white/20">
-              <DropdownMenuItem onClick={() => onEdit(todo)} className="cursor-pointer">
-                <Edit className="h-4 w-4 mr-2" />
+              <DropdownMenuItem onClick={() => onEdit(todo)} className="cursor-pointer hover:bg-purple-50">
+                <Edit className="h-4 w-4 mr-2 text-purple-500" />
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-destructive">
+              <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-destructive hover:bg-red-50">
                 <Trash2 className="h-4 w-4 mr-2" />
                 Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+        
+        {/* Completion celebration */}
+        {todo.completed && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, type: "spring" }}
+            className="absolute top-2 right-2"
+          >
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Star className="h-4 w-4 text-yellow-400" />
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
