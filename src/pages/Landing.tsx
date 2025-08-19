@@ -101,7 +101,7 @@ export default function Landing() {
               transition={{ duration: 10, repeat: Infinity, delay: 5 }}
             ></motion.div>
             
-            <div className="relative z-10">
+            <div className="relative z-10 bg-card/90 backdrop-blur-md p-10 rounded-xl border border-cyan-500/30 shadow-[0_0_20px_rgba(0,255,255,0.1)]">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
