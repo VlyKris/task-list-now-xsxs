@@ -82,7 +82,7 @@ export default function Landing() {
           </div>
         </motion.header>
 
-        <main className="container mx-auto px-4 pt-32 pb-16">
+        <main className="container mx-auto px-4 pt-32 pb-16 rounded-lg shadow-[0_0_40px_rgba(0,255,255,0.15)]">
           {/* Hero Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
