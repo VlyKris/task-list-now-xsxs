@@ -109,7 +109,7 @@ export default function Landing() {
               >
                 <Sparkles className="h-16 w-16 text-green-400 mx-auto mb-4" />
               </motion.div>
-              <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300">
                 Flow Through Your Tasks
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-green-200/80 mb-8">
