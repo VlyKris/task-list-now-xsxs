@@ -3,12 +3,26 @@
 // start completely from scratch to make this landing page using aesthetic design principles and tailwind styling to create a unique and thematic landing page.
 
 import { motion } from "framer-motion";
-import { Loader, Home, ArrowLeft } from "lucide-react";
+import { Loader, Home, ArrowLeft, Search, MapPin, Coffee, Pizza } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 export default function NotFound() {
   const navigate = useNavigate();
+
+  // Fun 404 messages that cycle through
+  const funnyMessages = [
+    "The page you're looking for seems to have wandered off into the digital void. Maybe it's getting coffee? ☕",
+    "Oops! This page went on vacation without leaving a forwarding address. 🏖️",
+    "404: The page you're looking for is probably procrastinating somewhere else. 😅",
+    "This page seems to have completed all its tasks and went home early! 🏠",
+    "The page you're looking for is currently in a meeting that could have been an email. 📧",
+    "404: Page not found. But hey, at least you're not procrastinating on finding it! 🎯",
+    "This page is like that task you keep meaning to do but never get around to. 📝",
+    "The page you're looking for is probably in the same place as your motivation on Monday morning. 😴"
+  ];
+
+  const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
 
   return (
     <div className="min-h-screen bg-green-gradient green-wave-bg flex items-center justify-center">
@@ -35,7 +49,7 @@ export default function NotFound() {
             transition={{ duration: 2, repeat: Infinity, delay: 1 }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <Loader className="h-16 w-16 text-green-400 animate-spin" />
+            <Search className="h-16 w-16 text-green-400" />
           </motion.div>
         </motion.div>
 
@@ -44,8 +58,7 @@ export default function NotFound() {
         </h1>
         
         <p className="text-xl text-green-700 mb-8 leading-relaxed">
-          The page you're looking for seems to have wandered off into the digital void. 
-          Don't worry, let's get you back on track!
+          {randomMessage}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -85,8 +98,23 @@ export default function NotFound() {
         >
           <p className="text-green-600 text-sm">
             While you're here, why not check out our amazing todo app? 
-            It's the perfect way to stay organized and productive! ✨
+            It's the perfect way to stay organized and productive! 
+            (And it won't get lost like this page did) ✨
           </p>
+        </motion.div>
+
+        {/* Fun fact section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="mt-8 p-4 rounded-xl bg-green-50/50 border border-green-200/30"
+        >
+          <div className="flex items-center justify-center gap-2 text-green-600 text-sm">
+            <Coffee className="h-4 w-4" />
+            <span>Fun fact: 404 errors were invented in 1990, making them older than most of your tasks! 📅</span>
+            <Pizza className="h-4 w-4" />
+          </div>
         </motion.div>
       </motion.div>
     </div>

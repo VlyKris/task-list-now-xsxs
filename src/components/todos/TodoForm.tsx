@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { motion } from "framer-motion";
-import { CalendarIcon, Plus, Sparkles, Target, Clock, AlertTriangle } from "lucide-react";
+import { CalendarIcon, Plus, Sparkles, Target, Clock, AlertTriangle, Coffee, Pizza, Rocket } from "lucide-react";
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
@@ -36,9 +36,27 @@ interface TodoFormProps {
 }
 
 const priorityConfig = {
-  low: { icon: Target, color: "text-emerald-400", bg: "bg-emerald-500/20", border: "border-emerald-500/30" },
-  medium: { icon: Clock, color: "text-amber-400", bg: "bg-amber-500/20", border: "border-amber-500/30" },
-  high: { icon: AlertTriangle, color: "text-rose-400", bg: "bg-rose-500/20", border: "border-rose-500/30" },
+  low: { 
+    icon: Target, 
+    color: "text-emerald-400", 
+    bg: "bg-emerald-500/20", 
+    border: "border-emerald-500/30",
+    description: "Someday maybe... or never 🐌"
+  },
+  medium: { 
+    icon: Clock, 
+    color: "text-amber-400", 
+    bg: "bg-amber-500/20", 
+    border: "border-amber-500/30",
+    description: "When you feel like it 🤷‍♂️"
+  },
+  high: { 
+    icon: AlertTriangle, 
+    color: "text-rose-400", 
+    bg: "bg-rose-500/20", 
+    border: "border-rose-500/30",
+    description: "Panic mode activated! 🚨"
+  },
 };
 
 export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
@@ -71,10 +89,10 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
           id: editTodo._id,
           ...todoData,
         });
-        toast.success("Todo updated successfully!");
+        toast.success("Todo updated successfully! 🎉");
       } else {
         await createTodo(todoData);
-        toast.success("Todo created successfully!");
+        toast.success("Todo created! Time to procrastinate... I mean, be productive! 🚀");
       }
 
       // Reset form
@@ -84,7 +102,7 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
       setDueDate("");
       onOpenChange(false);
     } catch (error) {
-      toast.error(editTodo ? "Failed to update todo" : "Failed to create todo");
+      toast.error(editTodo ? "Failed to update todo 😅" : "Failed to create todo. Maybe try again tomorrow? 😴");
     } finally {
       setIsLoading(false);
     }
@@ -133,7 +151,7 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="What needs to be done?"
+              placeholder={editTodo ? "What needs to be changed?" : "What needs to be done? (Be specific, not 'everything') 😅"}
               required
               className="bg-green-50/80 border-green-200 text-green-900 placeholder:text-green-500 focus:bg-green-100 focus:border-green-400 focus:ring-green-400 transition-all backdrop-blur-sm"
             />
@@ -150,7 +168,7 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add more details..."
+              placeholder="Add more details... or don't, we won't judge! 📝"
               rows={3}
               className="bg-green-50/80 border-green-200 text-green-900 placeholder:text-green-500 focus:bg-green-100 focus:border-green-400 focus:ring-green-400 transition-all backdrop-blur-sm resize-none"
             />
@@ -169,9 +187,9 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-green-50/95 backdrop-blur-sm border-green-200">
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="low">Low (Chill Mode) 🐌</SelectItem>
+                  <SelectItem value="medium">Medium (Meh) 🤷‍♂️</SelectItem>
+                  <SelectItem value="high">High (Panic!) 🚨</SelectItem>
                 </SelectContent>
               </Select>
             </motion.div>
@@ -193,6 +211,13 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
                 />
                 <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-green-500" />
               </div>
+              {dueDate && (
+                <p className="text-xs text-green-600 mt-1">
+                  {new Date(dueDate) < new Date() 
+                    ? "⚠️ This date is in the past! Time travel not supported 😅" 
+                    : "📅 Future you will thank present you! ✨"}
+                </p>
+              )}
             </motion.div>
           </div>
 
@@ -210,6 +235,7 @@ export function TodoForm({ open, onOpenChange, editTodo }: TodoFormProps) {
               <div>
                 <p className="text-sm font-medium text-green-600">Priority Level</p>
                 <p className="text-green-800 capitalize">{priority}</p>
+                <p className="text-xs text-green-600 italic">{currentPriority.description}</p>
               </div>
             </div>
           </motion.div>

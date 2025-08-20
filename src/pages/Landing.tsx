@@ -1,7 +1,7 @@
 import { AuthButton } from "@/components/auth/AuthButton";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { CheckCircle, Sparkles, ArrowRight, Zap, Palette, BrainCircuit, Rocket } from "lucide-react";
+import { CheckCircle, Sparkles, ArrowRight, Zap, Palette, BrainCircuit, Rocket, Coffee, Pizza, Trophy, Brain } from "lucide-react";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -113,7 +113,8 @@ export default function Landing() {
                 Flow Through Your Tasks
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-green-200/80 mb-8">
-                The ultimate todo app designed for fluidity, focus, and a little bit of fun. Stop managing, start flowing.
+                The ultimate todo app designed for fluidity, focus, and a little bit of fun. Stop managing, start flowing. 
+                Because life's too short to have boring to-do lists! 🚀
               </p>
               <AuthButton
                 trigger={
@@ -141,18 +142,61 @@ export default function Landing() {
               <FeatureCard
                 icon={<Zap className="h-8 w-8 text-fuchsia-400" />}
                 title="Blazing Fast"
-                description="Engineered for speed, so you never lose your train of thought."
+                description="Engineered for speed, so you never lose your train of thought. Faster than your motivation disappearing on Monday morning! ⚡"
               />
               <FeatureCard
                 icon={<Palette className="h-8 w-8 text-fuchsia-400" />}
                 title="Fully Customizable"
-                description="Make it yours with themes, custom priorities, and flexible views."
+                description="Make it yours with themes, custom priorities, and flexible views. Because everyone's procrastination style is unique! 🎨"
               />
               <FeatureCard
                 icon={<BrainCircuit className="h-8 w-8 text-fuchsia-400" />}
                 title="AI-Powered"
-                description="Smart suggestions and organization to keep you ahead of your tasks."
+                description="Smart suggestions and organization to keep you ahead of your tasks. Even when your brain wants to do anything but work! 🤖"
               />
+            </div>
+          </motion.section>
+
+          {/* Fun Stats Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeInOut" }}
+            className="mt-24"
+          >
+            <div className="grid md:grid-cols-4 gap-6">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-lg"
+              >
+                <Coffee className="h-8 w-8 text-green-400 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-green-300">∞</div>
+                <div className="text-sm text-green-200/80">Cups of Coffee</div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-lg"
+              >
+                <Brain className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-blue-300">99%</div>
+                <div className="text-sm text-blue-200/80">Brain Power Used</div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-lg"
+              >
+                <Pizza className="h-8 w-8 text-orange-400 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-orange-300">24/7</div>
+                <div className="text-sm text-orange-200/80">Pizza Time</div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-lg"
+              >
+                <Trophy className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-yellow-300">100%</div>
+                <div className="text-sm text-yellow-200/80">Procrastination Rate</div>
+              </motion.div>
             </div>
           </motion.section>
 
@@ -167,7 +211,8 @@ export default function Landing() {
             <div className="relative z-10">
               <h3 className="text-3xl font-bold mb-4 text-white">Ready to find your flow?</h3>
               <p className="text-fuchsia-200/80 mb-6">
-                Join thousands of users who are already more productive and less stressed.
+                Join thousands of users who are already more productive and less stressed. 
+                Or at least better at pretending to be productive! 😉
               </p>
               <AuthButton
                 trigger={

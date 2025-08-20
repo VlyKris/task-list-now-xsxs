@@ -18,9 +18,52 @@ import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { Protected } from "@/lib/protected-page";
 import { motion } from "framer-motion";
-import { CheckCircle, Filter, Plus, Search, Sparkles, Zap, Star } from "lucide-react";
+import { CheckCircle, Filter, Plus, Search, Sparkles, Zap, Star, Coffee, Pizza, Rocket, Brain, Trophy } from "lucide-react";
 import { useState } from "react";
 import { useQuery } from "convex/react";
+
+// Fun loading messages that cycle through
+const LOADING_MESSAGES = [
+  "Loading your procrastination... I mean, productivity! 🚀",
+  "Summoning the task spirits... ✨",
+  "Brewing coffee while we wait... ☕",
+  "Convincing your brain to focus... 🧠",
+  "Loading faster than your motivation... 💨",
+  "Almost there, just like your deadlines... ⏰",
+  "Loading... but not as slowly as you complete tasks... 🐌",
+  "Gathering your scattered thoughts... 🧩",
+  "Preparing your daily dose of overwhelm... 📋",
+  "Loading your to-do list (the one you'll ignore)... 📝"
+];
+
+// Fun empty state messages
+const EMPTY_MESSAGES = [
+  "Wow, look at you! Either you're super productive or you're avoiding everything... 🤔",
+  "Your to-do list is as empty as your motivation on Monday morning... 😴",
+  "No todos? That's either impressive or concerning... 🎯",
+  "An empty list means you're either done or in denial... 🫣",
+  "Zero todos! Are you a productivity wizard or just really good at procrastination? 🧙‍♂️",
+  "Nothing to do? Time to invent some problems! 🎭",
+  "Empty list detected! Either you're winning at life or avoiding it entirely... 🏆",
+  "No tasks here! Are you living the dream or just dreaming? 💭"
+];
+
+// Fun filter messages
+const getFilterMessage = (status: string, priority: string, search: string) => {
+  if (search && status !== "all" && priority !== "all") {
+    return "Looking for something specific? You're picky! 🕵️‍♂️";
+  }
+  if (search) {
+    return `Searching for "${search}"... hope it's not your motivation! 🔍`;
+  }
+  if (status !== "all") {
+    return `Filtering by ${status} tasks... because life needs categories! 📊`;
+  }
+  if (priority !== "all") {
+    return `Priority ${priority} only! You're getting fancy! ✨`;
+  }
+  return "All tasks visible! No hiding from your responsibilities! 👀";
+};
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -30,6 +73,15 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "pending" | "completed">("all");
   const [filterPriority, setFilterPriority] = useState<"all" | "low" | "medium" | "high">("all");
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+
+  // Cycle through loading messages
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const filteredTodos = todos?.filter((todo) => {
     const matchesSearch = todo.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,6 +102,11 @@ export default function Dashboard() {
   const handleCloseForm = () => {
     setShowForm(false);
     setEditTodo(null);
+  };
+
+  // Get random empty message
+  const getRandomEmptyMessage = () => {
+    return EMPTY_MESSAGES[Math.floor(Math.random() * EMPTY_MESSAGES.length)];
   };
 
   return (
@@ -113,9 +170,10 @@ export default function Dashboard() {
                   ease: "easeInOut",
                 }}
               >
-                {i % 3 === 0 ? <Star className="h-8 w-8" /> : 
-                 i % 3 === 1 ? <Sparkles className="h-8 w-8" /> : 
-                 <Zap className="h-8 w-8" />}
+                {i % 4 === 0 ? <Star className="h-8 w-8" /> : 
+                 i % 4 === 1 ? <Sparkles className="h-8 w-8" /> : 
+                 i % 4 === 2 ? <Zap className="h-8 w-8" /> :
+                 <Coffee className="h-8 w-8" />}
               </motion.div>
             ))}
           </div>
@@ -174,6 +232,11 @@ export default function Dashboard() {
                   transition={{ duration: 2, repeat: Infinity }}
                 >
                   Welcome back, {user?.name || "there"}! ✨
+                  {todos && todos.length > 0 && (
+                    <span className="ml-2 text-xs">
+                      {todos.filter(t => !t.completed).length} tasks waiting to stress you out! 😅
+                    </span>
+                  )}
                 </motion.p>
               </div>
             </div>
@@ -210,7 +273,7 @@ export default function Dashboard() {
               />
               <Search className="absolute left-3 top-3 h-4 w-4 text-yellow-200/70 group-focus-within:text-yellow-300 transition-colors z-10" />
               <Input
-                placeholder="Search todos..."
+                placeholder={searchQuery ? "Still searching..." : "Search todos... (or search for your motivation) 🕵️‍♂️"}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 bg-yellow-900/20 border-yellow-300/30 text-yellow-100 placeholder:text-yellow-200/50 focus:bg-yellow-800/30 focus:border-yellow-400/50 transition-all backdrop-blur-sm relative z-10"
@@ -225,8 +288,8 @@ export default function Dashboard() {
                 </SelectTrigger>
                 <SelectContent className="bg-yellow-50/95 backdrop-blur-sm border-yellow-200/30">
                   <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="pending">Pending (The Fun Zone) 😅</SelectItem>
+                  <SelectItem value="completed">Completed (Victory!) 🎉</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -236,9 +299,9 @@ export default function Dashboard() {
                 </SelectTrigger>
                 <SelectContent className="bg-yellow-50/95 backdrop-blur-sm border-yellow-200/30">
                   <SelectItem value="all">All Priority</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="high">High (Panic Mode) 🚨</SelectItem>
+                  <SelectItem value="medium">Medium (Meh) 🤷‍♂️</SelectItem>
+                  <SelectItem value="low">Low (Someday Maybe) 🐌</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -262,6 +325,19 @@ export default function Dashboard() {
             </div>
           </motion.div>
 
+          {/* Filter Message */}
+          {(searchQuery || filterStatus !== "all" || filterPriority !== "all") && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 text-center"
+            >
+              <p className="text-yellow-200/80 text-sm italic">
+                {getFilterMessage(filterStatus, filterPriority, searchQuery)}
+              </p>
+            </motion.div>
+          )}
+
           {/* Todo List */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -270,8 +346,24 @@ export default function Dashboard() {
             className="space-y-4"
           >
             {filteredTodos === undefined ? (
-              // Enhanced Loading state
+              // Enhanced Loading state with humor
               <div className="space-y-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center mb-6"
+                >
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="inline-block mb-4"
+                  >
+                    <Coffee className="h-12 w-12 text-yellow-400" />
+                  </motion.div>
+                  <p className="text-yellow-200/80 text-lg font-medium">
+                    {LOADING_MESSAGES[loadingMessageIndex]}
+                  </p>
+                </motion.div>
                 {Array.from({ length: 3 }).map((_, i) => (
                   <motion.div
                     key={i}
@@ -296,7 +388,7 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : filteredTodos.length === 0 ? (
-              // Enhanced Empty state
+              // Enhanced Empty state with humor
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -320,18 +412,18 @@ export default function Dashboard() {
                     transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                     className="absolute inset-0"
                   >
-                    <Sparkles className="h-8 w-8 text-amber-400 mx-auto" />
+                    <Trophy className="h-8 w-8 text-amber-400 mx-auto" />
                   </motion.div>
                 </motion.div>
                 <h3 className="text-lg font-semibold mb-2 text-yellow-100">
                   {searchQuery || filterStatus !== "all" || filterPriority !== "all" 
                     ? "No todos match your filters" 
-                    : "No todos yet"}
+                    : getRandomEmptyMessage()}
                 </h3>
                 <p className="text-yellow-200/80 mb-6">
                   {searchQuery || filterStatus !== "all" || filterPriority !== "all"
-                    ? "Try adjusting your search or filters"
-                    : "Create your first todo to get started"}
+                    ? "Try adjusting your search or filters (or lower your standards) 😏"
+                    : "Time to create some problems... I mean, tasks! 🎯"}
                 </p>
                 {(!searchQuery && filterStatus === "all" && filterPriority === "all") && (
                   <motion.div
@@ -354,30 +446,45 @@ export default function Dashboard() {
                 )}
               </motion.div>
             ) : (
-              // Enhanced Todo items
-              filteredTodos.map((todo, index) => (
-                <motion.div
-                  key={todo._id}
-                  initial={{ opacity: 0, x: -20, rotateY: -15 }}
-                  animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                  transition={{ 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15
-                  }}
-                  whileHover={{ 
-                    rotateY: 2,
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <TodoItem
-                    todo={todo}
-                    onEdit={handleEdit}
-                  />
-                </motion.div>
-              ))
+              // Enhanced Todo items with success message
+              <>
+                {filteredTodos.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center mb-4"
+                  >
+                    <p className="text-yellow-200/80 text-sm">
+                      {filteredTodos.length === 1 
+                        ? "1 task found! You can do this! 💪" 
+                        : `${filteredTodos.length} tasks found! Time to adult! 🎯`}
+                    </p>
+                  </motion.div>
+                )}
+                {filteredTodos.map((todo, index) => (
+                  <motion.div
+                    key={todo._id}
+                    initial={{ opacity: 0, x: -20, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{ 
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 15
+                    }}
+                    whileHover={{ 
+                      rotateY: 2,
+                      scale: 1.02,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    <TodoItem
+                      todo={todo}
+                      onEdit={handleEdit}
+                    />
+                  </motion.div>
+                ))}
+              </>
             )}
           </motion.div>
         </div>

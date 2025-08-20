@@ -9,7 +9,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Edit, MoreHorizontal, Trash2, Star, Zap, Target } from "lucide-react";
+import { Calendar, Clock, Edit, MoreHorizontal, Trash2, Star, Zap, Target, Coffee, Pizza, Rocket } from "lucide-react";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
@@ -39,9 +39,15 @@ const priorityIcons = {
 };
 
 const priorityEmojis = {
-  low: "⭐",
-  medium: "⭐⭐",
-  high: "⭐⭐⭐",
+  low: "🐌",
+  medium: "🤷‍♂️",
+  high: "🚨",
+};
+
+const priorityDescriptions = {
+  low: "Chill vibes only",
+  medium: "Meh, whenever",
+  high: "PANIC MODE!",
 };
 
 export function TodoItem({ todo, onEdit }: TodoItemProps) {
@@ -51,18 +57,32 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
   const handleToggle = async () => {
     try {
       await toggleTodo({ id: todo._id });
-      toast.success(todo.completed ? "Todo marked as pending" : "Todo completed!");
+      if (todo.completed) {
+        toast.success("Todo uncompleted! Back to the procrastination pile! 😅");
+      } else {
+        toast.success("Todo completed! You're on fire! 🔥");
+          // Add some fun completion messages
+          const completionMessages = [
+            "Task conquered! 🎯",
+            "You did the thing! 🎉",
+            "Productivity level: Expert! 🧠",
+            "Another one bites the dust! 💪",
+            "You're unstoppable! 🚀"
+          ];
+          const randomMessage = completionMessages[Math.floor(Math.random() * completionMessages.length)];
+          setTimeout(() => toast.success(randomMessage), 1000);
+      }
     } catch (error) {
-      toast.error("Failed to update todo");
+      toast.error("Failed to update todo. Maybe try again after coffee? ☕");
     }
   };
 
   const handleDelete = async () => {
     try {
       await deleteTodo({ id: todo._id });
-      toast.success("Todo deleted");
+      toast.success("Todo deleted! Out of sight, out of mind! 🗑️");
     } catch (error) {
-      toast.error("Failed to delete todo");
+      toast.error("Failed to delete todo. It's stubborn! 😤");
     }
   };
 
@@ -75,6 +95,18 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
 
   const isOverdue = todo.dueDate && todo.dueDate < Date.now() && !todo.completed;
   const PriorityIcon = priorityIcons[todo.priority];
+
+  // Get funny overdue message
+  const getOverdueMessage = () => {
+    const overdueMessages = [
+      "• Overdue (Time travel needed!) ⏰",
+      "• Overdue (Your future self is disappointed) 😅",
+      "• Overdue (Maybe next year?) 📅",
+      "• Overdue (Procrastination champion!) 🏆",
+      "• Overdue (Better late than never?) 🤷‍♂️"
+    ];
+    return overdueMessages[Math.floor(Math.random() * overdueMessages.length)];
+  };
 
   return (
     <motion.div
@@ -157,6 +189,7 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
                 <motion.span 
                   className={`px-3 py-1 text-xs rounded-full font-medium border ${priorityColors[todo.priority]} backdrop-blur-sm flex items-center gap-1`}
                   whileHover={{ scale: 1.05 }}
+                  title={priorityDescriptions[todo.priority]}
                 >
                   <PriorityIcon className="h-3 w-3" />
                   {priorityEmojis[todo.priority]} {todo.priority}
@@ -182,6 +215,7 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
                 className="flex items-center gap-1"
                 whileHover={{ scale: 1.05, color: "rgba(255,255,255,0.8)" }}
                 transition={{ duration: 0.2 }}
+                title="When you created this task (probably while procrastinating on something else)"
               >
                 <Clock className="h-3 w-3" />
                 {formatDate(todo._creationTime)}
@@ -203,7 +237,7 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
                       }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
-                      • Overdue
+                      {getOverdueMessage()}
                       <motion.div
                         animate={{ rotate: [0, 360] }}
                         transition={{ duration: 2, repeat: Infinity }}
